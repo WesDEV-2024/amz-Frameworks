@@ -1,6 +1,4 @@
-# dashboard-lookerstudio
-
-# Structural Framework
+# lookerstudio-dashboard-structural-framework
 
 ---
 
@@ -65,22 +63,22 @@
    ```python
    key_data_unique = key_data.groupby('SearchQuery').agg({'ASIN': 'first'}).reset_index()
    ```
+2. **Perform LEFT JOIN**: Merge the weekly aggregated data with the ASIN mapping using a LEFT JOIN to ensure no extra rows are introduced:
+   ```python
+   final_data = pd.merge(aggregated_data, key_data_unique, on='SearchQuery', how='left')
+   ```
+3. **Verify Rows**: Confirm that the row count of the merged DataFrame matches the original aggregated data.
+4. **Preview Final Data**: Display the merged DataFrame for review, ensuring ASINs are added correctly without duplicates.
+
 ---
 
-## Perform LEFT JOIN: Merge the weekly aggregated data with the ASIN mapping using a LEFT JOIN to ensure no extra rows are introduced:
-python
-Copy code
-final_data = pd.merge(aggregated_data, key_data_unique, on='SearchQuery', how='left')
-Verify Rows: Confirm that the row count of the merged DataFrame matches the original aggregated data.
-Preview Final Data: Display the merged DataFrame for review, ensuring ASINs are added correctly without duplicates.
-##  Step 8: Exporting Data
-Export Final Data: Save the cleaned and aggregated dataset with added ASINs to a CSV file:
-python
+## Step 8: Exporting Data
+1. **Export Final Data**: Save the cleaned and aggregated dataset with added ASINs to a CSV file:
+   ```python
+   final_data.to_csv('final_data_with_asins.csv', index=False)
+   ```
+2. **Verify Export**: Check that the file is saved with the correct structure and data.
 
-final_data.to_csv('final_data_with_asins.csv', index=False)
-Verify Export: Check that the file is saved with the correct structure and data.
-vbnet
+---
 
 
-
-This markdown-formatted framework ensures clarity and is ready for use in documentation or reports. Let me know if you need additional refinements!
